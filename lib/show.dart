@@ -2,7 +2,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:sqliteapp/sqlite3/database.dart';
+import 'package:sqliteapp/sqlite3/appointmentdatabase.dart';
 
 class Show extends StatefulWidget {
 
@@ -18,7 +18,7 @@ class _nameState extends State<Show> {
         title: Text('List'),
       ),
       body: FutureBuilder(
-        future:retrivedata(),
+        future:appointmentretrivedata(),
         builder: (BuildContext context , AsyncSnapshot<List<User>> snapshot)
         {
           if(snapshot.hasData)
@@ -29,8 +29,8 @@ class _nameState extends State<Show> {
             {
               return Card(
                 child: ListTile(
-                  title: Text(snapshot.data![index].email) ,
-                  subtitle: Text(snapshot.data![index].password),
+                  title: Text(snapshot.data![index].fullname) ,
+                  subtitle: Text(snapshot.data![index].datetime),
                 ),
               );
             });

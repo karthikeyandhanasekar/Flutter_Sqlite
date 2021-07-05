@@ -14,6 +14,11 @@ class Login extends StatefulWidget
 }
 class _LoginState extends State<Login> {
  
+ @override
+  void initState() {
+    createdatabase();
+    super.initState();
+  }
   @override
   Widget build (BuildContext context)
   {

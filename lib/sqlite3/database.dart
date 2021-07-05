@@ -33,11 +33,13 @@ Future<Database> createdatabase() async {
   var dbpath = await getDatabasesPath() ;
 
     Database database = await openDatabase(
-      join(dbpath,'auth.db')
+      join(dbpath,'hospital.db')
       ,version: 1,
     onCreate: (Database db, int version) async
     {
       await db.execute("create table users (email varchar2(50) PRIMARY KEY , password varchar2(100)) ");
+      await db.execute("create table appointment (fullname varchar2(100) , phone varchar2(10) , Street varchar2(100),city varchar2(100),zipcode varchar2(6),email varchar2(100),doctorname varchar2(100),datetime varchar2(100))");
+    print("created");
     }); 
     print(dbpath);
     return database;
