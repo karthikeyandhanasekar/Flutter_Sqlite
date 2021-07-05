@@ -59,7 +59,12 @@ titleTextStyle: TextStyle(
       )
     );
   }
-
+ @override
+  void dispose() {
+    _emailcontroller.clear();
+    _passwordcontroller.clear();
+    super.dispose();
+  }
 }
 Widget EmailInput()
 {
@@ -69,22 +74,25 @@ Widget EmailInput()
       controller: _emailcontroller,
       keyboardType: TextInputType.emailAddress,
       autofocus: true,
+      minLines: 1,
       obscureText: false,
       style: TextStyle(
         fontSize: 25.0,
         color: Colors.black,
       ),
       decoration: new InputDecoration(
-          hintText: 'Email Address',
+          hintText: 'Email',
+          labelText: 'Email',
           hintStyle: TextStyle(
             color: Colors.black,
             fontSize: 20.0,
           ),
-          /*enabledBorder: OutlineInputBorder(
-            borderSide:BorderSide(
-              color: Colors.black,
-            ) )*/
+
       ),
+      validator: (String? value)
+      {
+        return value != null ? value : null ; 
+      },
     ),
   );
 }

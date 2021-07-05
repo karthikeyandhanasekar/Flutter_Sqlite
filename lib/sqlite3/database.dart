@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:sqliteapp/appointmentform.dart';
 import 'package:sqliteapp/show.dart';
 
 class User
@@ -49,13 +50,17 @@ Future<Database> createdatabase() async {
   {
     int id =  await txn.rawInsert(_sql,[_email,_password]);
     print("inserted : $id");
+    if (id != 0)
+    {
+    Navigator.of(context).pop();
+    }
+    else
+    {
+      print("id = 0");
+    }
   }
   );
-  Navigator.of(context).push(
-    MaterialPageRoute(builder: (context) => Show())
-  );
  }
-
  Future<List<User>> retrivedata() async 
  {
    Database db = await createdatabase();
@@ -63,7 +68,24 @@ Future<Database> createdatabase() async {
    List<Map> list = await  db.rawQuery(_sql);
    print(list);
    return list.map((e) => User.fromMap(e)).toList();
-
- 
  }
 
+  Future<void> loginvalidate(String _email ,String _password,BuildContext context) async 
+ {
+   Database db = await createdatabase();
+     String _sql = 'select * from users where email = ? and password = ?';
+   List<Map> _list= await db.rawQuery(_sql,[_email,_password]); 
+   if (_list.isNotEmpty)
+   {
+     print("list not empty and validate");
+     //change here
+      Navigator.of(context).push(
+    MaterialPageRoute(builder: (context) => Appointment())
+  );
+   }
+   else
+   {
+     print("Login Failed");
+   } 
+   
+ }

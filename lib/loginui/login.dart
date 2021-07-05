@@ -1,6 +1,7 @@
 import 'package:sqliteapp/loginui/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:sqliteapp/sqlite3/database.dart';
 
 
 TextEditingController _emailcontroller = new TextEditingController();
@@ -12,7 +13,7 @@ class Login extends StatefulWidget
   _LoginState createState() => _LoginState();
 }
 class _LoginState extends State<Login> {
-
+ 
   @override
   Widget build (BuildContext context)
   {
@@ -47,7 +48,7 @@ class _LoginState extends State<Login> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       mainAxisSize: MainAxisSize.min ,
                       children: <Widget>[
-                            SubmitButton(),
+                            SubmitButton(context),
                             Gotregister(context)
                       ],
                     ),
@@ -61,13 +62,18 @@ class _LoginState extends State<Login> {
       )
     );
   }
-
+  @override
+  void dispose() {
+    _passwordcontroller.clear();
+    super.dispose();
+  }
 }
 Widget EmailInput()
 {
   return Padding(
     padding: EdgeInsets.all(25.0),
     child:    TextFormField(
+      autovalidateMode: AutovalidateMode.always, 
       controller: _emailcontroller,
       keyboardType: TextInputType.emailAddress,
       autofocus: true,
@@ -87,6 +93,11 @@ Widget EmailInput()
               color: Colors.black,
             ) )*/
       ),
+      validator: (String? value)
+      {
+        
+        return value != null ? null: "Please Enter your email" ; 
+      },
     ),
   );
 }
@@ -97,7 +108,9 @@ Widget PasswordInput()
     child:
     TextFormField(
       controller: _passwordcontroller,
-      keyboardType: TextInputType.emailAddress,
+            autovalidateMode: AutovalidateMode.always, 
+
+      keyboardType: TextInputType.name,
       obscureText: true,
       style: TextStyle(
         fontSize: 25.0,
@@ -114,11 +127,16 @@ Widget PasswordInput()
               color: Colors.black,
             ) )*/
       ),
+      validator: (String? value)
+      {
+        
+        return value != null ? null: "Please Enter your password" ; 
+      },
     ),
   );
 }
 
-Widget SubmitButton()
+Widget SubmitButton(BuildContext context)
 {
   return SizedBox(
     child: Padding(
@@ -130,7 +148,7 @@ Widget SubmitButton()
           primary: Colors.green,
           elevation: 3,
         ),
-        onPressed: null,
+        onPressed: () => loginvalidate(_emailcontroller.text.trim(), _passwordcontroller.text.trim(),context),
         label: Text("Submit"),
       ),
     ),
