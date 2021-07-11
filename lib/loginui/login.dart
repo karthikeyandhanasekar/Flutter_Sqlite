@@ -1,3 +1,4 @@
+import 'package:sqliteapp/customwidget/textfield.dart';
 import 'package:sqliteapp/loginui/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -34,18 +35,25 @@ class _LoginState extends State<Login> {
         elevation: 20.0,
       ),
       body:Center(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(10, 25, 10, 100),
-          child:SizedBox(
-            height: 300,
+        child: SizedBox(
+          height: 250,
+          width: 380,
+          child: Card(
+      color: Theme.of(context).backgroundColor,
+            borderOnForeground: false,
+            elevation: 20.0,
+            shadowColor: Colors.blueAccent,
             child: new Form(
                 child:ListView(
                   children: <Widget>[
-                    EmailInput(),
                     SizedBox(
                       height:1 
                     ),
-                    PasswordInput(),
+                    CustomTextField.TextFieldType(context,_emailcontroller,Icon(Icons.email_outlined),TextInputType.emailAddress,"Email"),
+                    SizedBox(
+                      height:1 
+                    ),
+                   CustomTextField.TextFieldType(context,_passwordcontroller,Icon(Icons.password_outlined),TextInputType.text,"Email",pass: true),
                     SizedBox(
                       height: 5,
                     ),
@@ -61,8 +69,7 @@ class _LoginState extends State<Login> {
                   ],
                 )
             ),
-          )
-
+          ),
         ),
       )
     );
@@ -73,74 +80,6 @@ class _LoginState extends State<Login> {
     super.dispose();
   }
 }
-Widget EmailInput()
-{
-  return Padding(
-    padding: EdgeInsets.all(25.0),
-    child:    TextFormField(
-      autovalidateMode: AutovalidateMode.always, 
-      controller: _emailcontroller,
-      keyboardType: TextInputType.emailAddress,
-      autofocus: true,
-      obscureText: false,
-      style: TextStyle(
-        fontSize: 25.0,
-        color: Colors.black,
-      ),
-      decoration: new InputDecoration(
-          hintText: 'Email Address',
-          hintStyle: TextStyle(
-            color: Colors.black,
-            fontSize: 20.0,
-          ),
-          /*enabledBorder: OutlineInputBorder(
-            borderSide:BorderSide(
-              color: Colors.black,
-            ) )*/
-      ),
-      validator: (String? value)
-      {
-        
-        return value != null ? null: "Please Enter your email" ; 
-      },
-    ),
-  );
-}
-Widget PasswordInput()
-{
-  return Padding(
-    padding: EdgeInsets.all(25.0),
-    child:
-    TextFormField(
-      controller: _passwordcontroller,
-            autovalidateMode: AutovalidateMode.always, 
-
-      keyboardType: TextInputType.name,
-      obscureText: true,
-      style: TextStyle(
-        fontSize: 25.0,
-        color: Colors.black,
-      ),
-       decoration: new InputDecoration(
-          hintText: 'Password',
-          hintStyle: TextStyle(
-            color: Colors.black,
-            fontSize: 20.0,
-          ),
-          /*enabledBorder: OutlineInputBorder(
-            borderSide:BorderSide(
-              color: Colors.black,
-            ) )*/
-      ),
-      validator: (String? value)
-      {
-        
-        return value != null ? null: "Please Enter your password" ; 
-      },
-    ),
-  );
-}
-
 Widget SubmitButton(BuildContext context)
 {
   return SizedBox(
@@ -182,7 +121,5 @@ register(BuildContext context)
 
      Navigator.of(context).push(
     MaterialPageRoute(builder: (context) => Register())
-  );
-
-  
+  ); 
 }

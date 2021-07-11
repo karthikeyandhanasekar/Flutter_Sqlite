@@ -1284,8 +1284,8 @@ kotlin.collections.MapsKt
 androidx.core.view.NestedScrollingChild3
 io.flutter.BuildConfig
 androidx.core.content.res.TypedArrayUtils
-kotlin.NumbersKt__BigDecimalsKt
 kotlin.collections.ArraysKt___ArraysKt
+kotlin.NumbersKt__BigDecimalsKt
 kotlin.UInt$Companion
 kotlin.jvm.functions.Function3
 androidx.fragment.app.FragmentContainer
@@ -1321,8 +1321,8 @@ androidx.core.app.ActivityCompat$RequestPermissionsRequestCodeValidator
 androidx.lifecycle.ViewModelProvider$Factory
 androidx.core.R$attr
 androidx.annotation.ColorRes
-kotlin.contracts.InvocationKind
 androidx.core.content.res.GrowingArrayUtils
+kotlin.contracts.InvocationKind
 kotlin.jvm.internal.ArrayIterator
 io.flutter.embedding.engine.FlutterEngineConnectionRegistry$FlutterEngineActivityPluginBinding:
     public android.app.Activity getActivity()
@@ -1519,8 +1519,8 @@ io.flutter.plugin.platform.PlatformViewRegistryImpl:
     public boolean registerViewFactory(java.lang.String,io.flutter.plugin.platform.PlatformViewFactory)
 androidx.core.app.ServiceCompat$StopForegroundFlags
 androidx.loader.R$style
-kotlin.UIntArray$Iterator
 kotlin.collections.ArraysKt
+kotlin.UIntArray$Iterator
 androidx.core.net.ConnectivityManagerCompat
 kotlin.comparisons.ComparisonsKt__ComparisonsKt$compareBy$1
 kotlin.text.MatcherMatchResult$groupValues$1
@@ -1967,9 +1967,9 @@ kotlin.sequences.SequencesKt__SequenceBuilderKt$sequence$$inlined$Sequence$1
 androidx.fragment.app.FragmentManagerViewModel
 androidx.customview.widget.ExploreByTouchHelper
 androidx.annotation.CheckResult
-io.flutter.embedding.engine.systemchannels.PlatformChannel:
-    private static final java.lang.String TAG
 io.flutter.embedding.engine.systemchannels.PlatformViewsChannel:
+    private static final java.lang.String TAG
+io.flutter.embedding.engine.systemchannels.PlatformChannel:
     private static final java.lang.String TAG
 kotlin.Suppress
 kotlin.collections.GroupingKt
@@ -1995,8 +1995,8 @@ androidx.core.content.res.ConfigurationHelper
 kotlin.internal.OnlyInputTypes
 kotlin.collections.ArraysKt___ArraysKt$asIterable$$inlined$Iterable$4
 androidx.core.view.accessibility.AccessibilityViewCommand$ScrollToPositionArguments
-kotlin.coroutines.experimental.SafeContinuation
 kotlin.coroutines.experimental.CombinedContext$toString$1
+kotlin.coroutines.experimental.SafeContinuation
 kotlin.jvm.internal.EnumCompanionObject
 androidx.core.app.TaskStackBuilder$SupportParentable
 androidx.viewpager.widget.ViewPager
@@ -2625,8 +2625,8 @@ androidx.customview.widget.ExploreByTouchHelper$1
 androidx.core.graphics.PathSegment
 androidx.core.app.SharedElementCallback
 androidx.core.graphics.drawable.IconCompat$IconType
-kotlin.UnsignedKt
 kotlin.io.AccessDeniedException
+kotlin.UnsignedKt
 android.support.v4.os.IResultReceiver
 androidx.core.graphics.drawable.RoundedBitmapDrawable
 kotlin.SafePublicationLazyImpl
