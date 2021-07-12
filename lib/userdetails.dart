@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
 import 'package:sqliteapp/customwidget/textfield.dart';
+import 'package:sqliteapp/show.dart';
 import 'package:sqliteapp/sqlite3/appointmentdatabase.dart';
 import 'package:sqliteapp/sqlite3/database.dart';
 
@@ -47,7 +48,15 @@ class _UserDetailsState extends State<UserDetails> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).bottomAppBarColor,
+      actions: [
+        TextButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Show())), 
+        child: Text("Display",
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 22.0,
+        ),),)
+      ],
          title: Text('Appointment',
         style: TextStyle(
           color: Colors.black,
@@ -55,12 +64,18 @@ class _UserDetailsState extends State<UserDetails> {
         ),),
 titleTextStyle: TextStyle(
   color: Colors.black,
+
 ) ,
         elevation: 20.0,
+
       ),
       body:
       AuthPage(context)
+
     );
+         
+
+      
   }
 
   Widget AuthPage(BuildContext context) {

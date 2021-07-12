@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sqliteapp/loginui/login.dart';
-import 'package:sqliteapp/show.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,7 +11,8 @@ class MyApp extends StatelessWidget {
       title: 'Appointment Booking',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.teal,
+        bottomAppBarColor: Colors.deepOrangeAccent,
+        backgroundColor: Colors.white,
       ),
       home: Login(),
     );

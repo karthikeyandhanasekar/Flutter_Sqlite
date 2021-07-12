@@ -22,8 +22,8 @@
 18        android:debuggable="true"
 19        android:icon="@mipmap/ic_launcher"
 19-->/home/karthik/flutterProject/sqliteapp/android/app/src/main/AndroidManifest.xml:5:9-43
-20        android:label="sqliteapp" >
-20-->/home/karthik/flutterProject/sqliteapp/android/app/src/main/AndroidManifest.xml:4:9-34
+20        android:label="Health Appointment" >
+20-->/home/karthik/flutterProject/sqliteapp/android/app/src/main/AndroidManifest.xml:4:9-43
 21        <activity
 21-->/home/karthik/flutterProject/sqliteapp/android/app/src/main/AndroidManifest.xml:6:9-34:20
 22            android:name="com.example.sqliteapp.MainActivity"

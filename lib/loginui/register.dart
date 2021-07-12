@@ -24,7 +24,7 @@ class _RegisterState extends State<Register> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).bottomAppBarColor,
          title: Text('Register',
         style: TextStyle(
           color: Colors.black,

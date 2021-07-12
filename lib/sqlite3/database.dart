@@ -96,7 +96,7 @@ Future<Database> createdatabase() async {
    else
    {
      print("Login Failed");
-      await errordialog(context, "Login failed",'');
+      await errordialog(context, "Login failed",'Invalid Creditionals');
 
    } 
    

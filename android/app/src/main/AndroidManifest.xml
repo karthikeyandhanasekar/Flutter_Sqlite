@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sqliteapp">
    <application
-        android:label="sqliteapp"
+        android:label="Health Appointment"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

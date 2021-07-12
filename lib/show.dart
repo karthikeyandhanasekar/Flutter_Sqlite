@@ -18,6 +18,8 @@ class _nameState extends State<Show> {
     return Scaffold(
       appBar: AppBar(
         title: Text('List'),
+      backgroundColor: Theme.of(context).bottomAppBarColor,
+
       ),
       body: ListTileWidget(context),
     );
@@ -39,9 +41,30 @@ class _nameState extends State<Show> {
           {
             String value = "DateTime : " + snapshot.data![index].datetime + "\nContact : " + snapshot.data![index].phone + "\nDoctor Name : " + snapshot.data![index].doctor ;
             return Card(
+              elevation: 5.0,
+              
               child: ListTile(
-                title: Text(snapshot.data![index].fullname) ,
-                subtitle: Text(snapshot.data![index].datetime),
+                dense: true,
+                
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.elliptical(2, 2)),
+                  
+                ),
+                title: Text(snapshot.data![index].fullname,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22.0,
+                    ),
+                ) ,
+                subtitle: Text("\t" +"\t"  +"\t"  + snapshot.data![index].datetime,
+                style: TextStyle(
+                      color: Colors.black,
+              
+                      fontSize: 18.0,
+                    ),
+                
+                ),
                 onTap: () => errordialog(context,snapshot.data![index].fullname ,value) ,
               ),
             );
