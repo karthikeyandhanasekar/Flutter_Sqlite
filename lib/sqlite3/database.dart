@@ -2,7 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:sqliteapp/appointmentform.dart';
+import 'package:sqliteapp/customwidget/dialog.dart';
+import 'package:sqliteapp/userdetails.dart';
 import 'package:sqliteapp/show.dart';
 
 class User
@@ -44,11 +45,15 @@ Future<Database> createdatabase() async {
     print(dbpath);
     return database;
 }
+
+
  Future<void> insertvalue(String _email,String _password,BuildContext context) async
  {
-   String _sql = 'insert into users values(?,?)';
+   try
+   {
+ String _sql = 'insert into users values(?,?)';
   Database db =  await createdatabase();
-  db.transaction((txn) async
+ await  db.transaction((txn) async
   {
     int id =  await txn.rawInsert(_sql,[_email,_password]);
     print("inserted : $id");
@@ -56,12 +61,15 @@ Future<Database> createdatabase() async {
     {
     Navigator.of(context).pop();
     }
-    else
-    {
-      print("id = 0");
-    }
   }
   );
+   }
+   catch(e,s)
+   {
+    await errordialog(context, "Invalid Register", "Try different email or password");
+
+   }
+  
  }
  Future<List<User>> retrivedata() async 
  {
@@ -82,12 +90,16 @@ Future<Database> createdatabase() async {
      print("list not empty and validate");
      //change here
       Navigator.of(context).push(
-    MaterialPageRoute(builder: (context) => Appointment())
+    MaterialPageRoute(builder: (context) => UserDetails(email : _email))
   );
    }
    else
    {
      print("Login Failed");
+      await errordialog(context, "Login failed",'');
+
    } 
    
  }
+
+  

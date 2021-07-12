@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:sqliteapp/appointmentform.dart';
+import 'package:sqliteapp/customwidget/dialog.dart';
 import 'package:sqliteapp/show.dart';
 import 'package:sqliteapp/sqlite3/database.dart';
 
@@ -80,11 +80,21 @@ class User
   }
   );
  }
- Future<List<User>> appointmentretrivedata() async 
+ Future<List<User>> appointmentretrivedata(BuildContext context) async 
  {
-   Database db = await createdatabase();
-     String _sql = 'select * from appointment';
+   try
+   {
+    Database db = await createdatabase();
+     String _sql = 'select * from appointment ORDER BY datetime desc';
    List<Map> list = await  db.rawQuery(_sql);
    print(list);
-   return list.map((e) => User.fromMap(e)).toList();
+      return list.map((e) => User.fromMap(e)).toList();
+
+   }
+   catch(e)
+   {
+    return errordialog(context, 'AppointmentList Retrive Failed ', 'Contact Administration');
+     
+   }
+   
  }

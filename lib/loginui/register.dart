@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
+import 'package:sqliteapp/customwidget/textfield.dart';
 import 'package:sqliteapp/sqlite3/database.dart';
 
 
@@ -32,31 +35,48 @@ titleTextStyle: TextStyle(
 ) ,
         elevation: 20.0,
       ),
-      body:Center(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(10, 20, 10, 100),
-          child:SizedBox(
-            height: 300,
-            child: new Form(
-                child:ListView(
-                  children: <Widget>[
-                    EmailInput(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    PasswordInput(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    SubmitButton(context)
-                    
-                  ],
-                )
-            ),
-          )
+      body:
+      AuthPage(context)
+    );
+  }
 
-        ),
-      )
+  Widget AuthPage(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+            Container(
+              
+              child: Image.asset('assets/image/doctor-removepg.png',
+              fit: BoxFit.fitHeight,
+              height:  (window.physicalSize.height)/10,
+              width: window.physicalSize.width,              
+              ),
+            ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child:SizedBox(
+              height: 300,
+              child: new Form(
+                  child:ListView(
+                    children: <Widget>[
+                     CustomTextField.TextFieldType(context,_emailcontroller,Icon(Icons.email_outlined),TextInputType.text,"Email"),
+                      SizedBox(
+                        height: 10,
+                      ),
+                     CustomTextField.TextFieldType(context,_passwordcontroller,Icon(Icons.password_outlined),TextInputType.text,"Password",pass: true),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      SubmitButton(context)
+                      
+                    ],
+                  )
+              ),
+            )
+    
+          ),
+        ],
+      ),
     );
   }
  @override
@@ -65,63 +85,6 @@ titleTextStyle: TextStyle(
     _passwordcontroller.clear();
     super.dispose();
   }
-}
-Widget EmailInput()
-{
-  return Padding(
-    padding: EdgeInsets.all(25.0),
-    child:    TextFormField(
-      controller: _emailcontroller,
-      keyboardType: TextInputType.emailAddress,
-      autofocus: true,
-      minLines: 1,
-      obscureText: false,
-      style: TextStyle(
-        fontSize: 25.0,
-        color: Colors.black,
-      ),
-      decoration: new InputDecoration(
-          hintText: 'Email',
-          labelText: 'Email',
-          hintStyle: TextStyle(
-            color: Colors.black,
-            fontSize: 20.0,
-          ),
-
-      ),
-      validator: (String? value)
-      {
-        return value != null ? value : null ; 
-      },
-    ),
-  );
-}
-Widget PasswordInput()
-{
-  return Padding(
-    padding: EdgeInsets.all(25.0),
-    child:
-    TextFormField(
-      controller: _passwordcontroller,
-      keyboardType: TextInputType.emailAddress,
-      obscureText: true,
-      style: TextStyle(
-        fontSize: 25.0,
-        color: Colors.black,
-      ),
-       decoration: new InputDecoration(
-          hintText: 'Password',
-          hintStyle: TextStyle(
-            color: Colors.black,
-            fontSize: 20.0,
-          ),
-          /*enabledBorder: OutlineInputBorder(
-            borderSide:BorderSide(
-              color: Colors.black,
-            ) )*/
-      ),
-    ),
-  );
 }
 
 Widget SubmitButton(BuildContext context)

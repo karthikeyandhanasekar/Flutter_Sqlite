@@ -17,6 +17,7 @@ static Widget TextFieldType(BuildContext context,TextEditingController _controll
         color: Colors.black,
       ),
       decoration: new InputDecoration(
+        hintText: _hint,
          hintStyle: TextStyle(
             color: Colors.black,
             fontSize: 20.0,
