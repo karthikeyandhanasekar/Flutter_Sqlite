@@ -97,8 +97,8 @@ Widget AuthPage(BuildContext context) {
       child: Column(
         children: [
             Container(
-              
-              child: Image.asset('assets/image/doctorhello.png',
+
+              child: Image.asset('assets/images/doctorhello.png',
               fit: BoxFit.fitHeight,
               height:  (window.physicalSize.height)/10,
               width: window.physicalSize.width,              

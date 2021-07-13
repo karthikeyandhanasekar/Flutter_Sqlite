@@ -46,7 +46,7 @@ titleTextStyle: TextStyle(
         children: [
             Container(
               
-              child: Image.asset('assets/image/doctor-removepg.png',
+              child: Image.asset('assets/images/doctor-removepg.png',
               fit: BoxFit.fitHeight,
               height:  (window.physicalSize.height)/10,
               width: window.physicalSize.width,              
