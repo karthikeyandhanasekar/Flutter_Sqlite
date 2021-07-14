@@ -7,11 +7,16 @@ import 'package:sqliteapp/sqlite3/appointmentdatabase.dart';
 
 class Show extends StatefulWidget {
 
+ /* final String name;
+  Show({required this.name});
+  void printdata()
+  {}*/
   @override
   _nameState createState() => _nameState();
 }
 
 class _nameState extends State<Show> {
+   
   
   @override
   Widget build(BuildContext context) {

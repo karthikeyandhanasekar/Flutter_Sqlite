@@ -55,7 +55,7 @@ titleTextStyle: TextStyle(
           Padding(
             padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
             child:SizedBox(
-              height: 300,
+              height: window.physicalSize.height,
               child: new Form(
                   child:ListView(
                     children: <Widget>[

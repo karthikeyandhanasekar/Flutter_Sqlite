@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:sqliteapp/customwidget/textfield.dart';
+import 'package:sqliteapp/loginui/doctorlogin.dart';
 import 'package:sqliteapp/loginui/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -20,6 +21,8 @@ class _LoginState extends State<Login> {
  @override
   void initState() {
     createdatabase();
+    print("init");
+    //doctorlist();
     super.initState();
   }
   @override
@@ -92,6 +95,25 @@ register(BuildContext context)
     MaterialPageRoute(builder: (context) => Register())
   ); 
 }
+Widget doctorlogin(BuildContext context)
+{
+  return SizedBox(
+    child: Padding(
+      padding: EdgeInsets.fromLTRB(100, 5, 100, 20),
+      child: OutlinedButton(
+        
+        onPressed:()=> Navigator.of(context).push(MaterialPageRoute(builder: (context)=> DoctorLogin())      ),
+        child: Text('Doctor Login',
+        style: TextStyle(
+          fontSize: 20.0,
+          color: Colors.black54,
+          fontWeight: FontWeight.w900,
+        ),),
+        )
+    ),
+  );
+}
+
 Widget AuthPage(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
@@ -110,7 +132,7 @@ Widget AuthPage(BuildContext context) {
           Padding(
             padding: EdgeInsets.fromLTRB(10, 12, 10, 0),
             child:SizedBox(
-              height: 300,
+              height: window.physicalSize.height,
               child: new Form(
                   child:ListView(
                     children: <Widget>[
@@ -124,6 +146,9 @@ Widget AuthPage(BuildContext context) {
                       ),
                       SubmitButton(context),
                       Gotregister(context),
+                      doctorlogin(context),
+
+
                       
                     ],
                   )

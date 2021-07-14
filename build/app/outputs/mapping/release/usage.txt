@@ -845,8 +845,8 @@ kotlin.sequences.ConstrainedOnceSequence
 kotlin.DeprecationLevel
 androidx.viewpager.widget.PagerTabStrip
 io.flutter.embedding.android.FlutterView$TransparencyMode
-androidx.core.view.ViewGroupCompat
 androidx.core.view.ScaleGestureDetectorCompat
+androidx.core.view.ViewGroupCompat
 androidx.core.app.NotificationCompat$CarExtender
 kotlin.jvm.internal.TypeReference
 androidx.lifecycle.GenericLifecycleObserver
@@ -1967,9 +1967,9 @@ kotlin.sequences.SequencesKt__SequenceBuilderKt$sequence$$inlined$Sequence$1
 androidx.fragment.app.FragmentManagerViewModel
 androidx.customview.widget.ExploreByTouchHelper
 androidx.annotation.CheckResult
-io.flutter.embedding.engine.systemchannels.PlatformViewsChannel:
-    private static final java.lang.String TAG
 io.flutter.embedding.engine.systemchannels.PlatformChannel:
+    private static final java.lang.String TAG
+io.flutter.embedding.engine.systemchannels.PlatformViewsChannel:
     private static final java.lang.String TAG
 kotlin.Suppress
 kotlin.collections.GroupingKt

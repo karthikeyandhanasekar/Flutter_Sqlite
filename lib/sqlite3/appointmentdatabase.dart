@@ -60,18 +60,19 @@ class User
 
  Future<void> insertappointmentvalue(List<String?> values,BuildContext context) async
  {
+  
    String _sql = 'insert into appointment values(?,?,?,?,?,?,?,?)';
   Database db =  await createdatabase();
   db.transaction((txn) async
   {
     int id =  await txn.rawInsert(_sql,[values[0],values[1],values[2],values[3],values[4],values[5],values[6],values[7]]);
     print("inserted : $id");
+    print(values);
     if (id != 0)
     {
       print("insert success $id ");
-      Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => Show())
-      );
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => Show()));
+     //errordialog(context, "Inserted", '');
     }
     else
     {
@@ -97,4 +98,13 @@ class User
      
    }
    
+ }
+
+  Future<List<User>> Doctorschedule(String name) async 
+ {
+   Database db = await createdatabase();
+     String _sql = 'select * from appointment where doctorname = ? ';
+   List<Map> list = await  db.rawQuery(_sql,[name]);
+   print(list);
+   return list.map((e) => User.fromMap(e)).toList();
  }

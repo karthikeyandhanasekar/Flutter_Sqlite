@@ -10,6 +10,7 @@ import 'package:sqliteapp/sqlite3/appointmentdatabase.dart';
 import 'package:sqliteapp/sqlite3/database.dart';
 
 final  _formKey = GlobalKey<FormState>();
+String? _doctorname;
 
 TextEditingController _fullname = new TextEditingController();
 TextEditingController _phone = new TextEditingController();
@@ -17,7 +18,6 @@ TextEditingController _street = new TextEditingController();
 TextEditingController _city = new TextEditingController();
 TextEditingController _zipcode = new TextEditingController();
 TextEditingController _email = new TextEditingController();
-TextEditingController _doctorname = new TextEditingController();
 var currentyear = new DateTime.now().year;
 String? _appointtime;
 class UserDetails extends StatefulWidget
@@ -31,6 +31,14 @@ class UserDetails extends StatefulWidget
 
 class _UserDetailsState extends State<UserDetails> {
 
+
+@override
+  void initState() {
+    print("init");
+     Doctorlist();
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   void dispose() {
     _fullname.clear();
@@ -39,9 +47,9 @@ class _UserDetailsState extends State<UserDetails> {
     _city.clear();
     _zipcode.clear();
     _email.clear();
-    _doctorname.clear();
     super.dispose();
   }
+  
   @override
   Widget build (BuildContext context)
   {
@@ -77,7 +85,6 @@ titleTextStyle: TextStyle(
 
       
   }
-
   Widget AuthPage(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
@@ -116,7 +123,40 @@ titleTextStyle: TextStyle(
                         height: 10,
                       ),
                        ],),
-                      CustomTextField.TextFieldType(context,_doctorname,Icon(Icons.people_alt_outlined),TextInputType.text,"Doctor Name"),
+                        SizedBox(
+                        height: 10,
+                      ),
+                       ListTile(
+                         leading: Icon(Icons.health_and_safety_outlined),
+                         title: DropdownButton<String>(
+                         focusColor:Colors.white,
+                         value: _doctorname,
+                         //elevation: 5,
+                         style: TextStyle(color: Colors.white),
+                         iconEnabledColor:Colors.black,
+                         items:Doctorlist().map<DropdownMenuItem<String>>((String value) {
+                           return DropdownMenuItem<String>(
+                             value: value,
+                             child: Text(value,style:TextStyle(color:Colors.black,fontSize: 20.0,
+                       ),),
+                           );
+                         }).toList(),
+                         hint:Text(
+                           "Doctors",
+                           style: TextStyle(
+                               color: Colors.black,
+                               fontSize: 20,
+                               ),
+                         ),
+                         onChanged: ( value) {
+                           setState(() {
+                             print(value);
+                             _doctorname = value;
+                           });
+                         },
+                       ),
+                       ),
+                     // CustomTextField.TextFieldType(context,_doctorname,Icon(Icons.people_alt_outlined),TextInputType.text,"Doctor Name"),
                       SizedBox(
                         height: 10,
                       ),
@@ -183,7 +223,7 @@ void formvalidate(BuildContext context)
       _appointtime = new DateTime.now().toString();
     }
     List<String?> values = [_fullname.text.trim(),_phone.text.trim(),_street.text.trim(),
-    _city.text.trim(),_zipcode.text.trim(),_email.text.trim(),_doctorname.text.trim(),_appointtime.toString()];
+    _city.text.trim(),_zipcode.text.trim(),_email.text.trim(),_doctorname,_appointtime.toString()];
     print(values);
     insertappointmentvalue(values,context);
   }
