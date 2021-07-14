@@ -11,6 +11,7 @@ import 'package:sqliteapp/sqlite3/database.dart';
 
 final  _formKey = GlobalKey<FormState>();
 String? _doctorname;
+List<String> values = [];
 
 TextEditingController _fullname = new TextEditingController();
 TextEditingController _phone = new TextEditingController();
@@ -35,7 +36,10 @@ class _UserDetailsState extends State<UserDetails> {
 @override
   void initState() {
     print("init");
-     Doctorlist();
+     //Doctorlist();
+  setState(() {
+      values = Doctorlist();
+    });
     // TODO: implement initState
     super.initState();
   }
@@ -53,6 +57,7 @@ class _UserDetailsState extends State<UserDetails> {
   @override
   Widget build (BuildContext context)
   {
+    
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -134,7 +139,7 @@ titleTextStyle: TextStyle(
                          //elevation: 5,
                          style: TextStyle(color: Colors.white),
                          iconEnabledColor:Colors.black,
-                         items:Doctorlist().map<DropdownMenuItem<String>>((String value) {
+                         items:values.map<DropdownMenuItem<String>>((String value) {
                            return DropdownMenuItem<String>(
                              value: value,
                              child: Text(value,style:TextStyle(color:Colors.black,fontSize: 20.0,
@@ -218,12 +223,16 @@ Widget SubmitButton(BuildContext context)
 
 void formvalidate(BuildContext context)
 {
-   if (_appointtime == null)
+  if (_formKey.currentState!.validate())
+  {
+if (_appointtime == null)
     {
       _appointtime = new DateTime.now().toString();
     }
     List<String?> values = [_fullname.text.trim(),_phone.text.trim(),_street.text.trim(),
     _city.text.trim(),_zipcode.text.trim(),_email.text.trim(),_doctorname,_appointtime.toString()];
     print(values);
-    insertappointmentvalue(values,context);
+    //insertappointmentvalue(values,context);
+  }
+   
   }

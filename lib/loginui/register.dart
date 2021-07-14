@@ -10,6 +10,7 @@ import 'package:sqliteapp/sqlite3/database.dart';
 TextEditingController _emailcontroller = new TextEditingController();
 TextEditingController _passwordcontroller = new TextEditingController();
 
+  final _form = GlobalKey<FormState>();
 
 class Register extends StatefulWidget
 {
@@ -57,9 +58,10 @@ titleTextStyle: TextStyle(
             child:SizedBox(
               height: window.physicalSize.height,
               child: new Form(
+                key: _form,
                   child:ListView(
                     children: <Widget>[
-                     CustomTextField.TextFieldType(context,_emailcontroller,Icon(Icons.email_outlined),TextInputType.text,"Email"),
+                     CustomTextField.EmailInput(context,_emailcontroller,Icon(Icons.email_outlined),TextInputType.emailAddress,"Name"),
                       SizedBox(
                         height: 10,
                       ),
@@ -99,7 +101,7 @@ Widget SubmitButton(BuildContext context)
           primary: Colors.green,
           elevation: 3,
         ),
-       onPressed: () => insertvalue(_emailcontroller.text.trim(),_passwordcontroller.text.trim(),context),
+       onPressed: () => Submit(context),
         //onPressed: () => retrivedata(),
 
         label: Text("Submit"),
@@ -107,3 +109,11 @@ Widget SubmitButton(BuildContext context)
     ),
   );
 }
+ Submit(BuildContext context) 
+ {
+ if(_form.currentState!.validate())
+ {
+  insertvalue(_emailcontroller.text.trim(),_passwordcontroller.text.trim(),context);
+ }
+ 
+ }

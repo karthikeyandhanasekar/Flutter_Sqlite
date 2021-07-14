@@ -14,7 +14,7 @@ class Show extends StatefulWidget {
   @override
   _nameState createState() => _nameState();
 }
-
+String doctor='';
 class _nameState extends State<Show> {
    
   
@@ -44,7 +44,15 @@ class _nameState extends State<Show> {
           itemCount: snapshot.data?.length,
           itemBuilder: (BuildContext context,int index)
           {
-            String value = "DateTime : " + snapshot.data![index].datetime + "\nContact : " + snapshot.data![index].phone + "\nDoctor Name : " + snapshot.data![index].doctor ;
+            if (snapshot.data![index].doctor == null)
+            {
+              doctor = "None";
+            }
+            else
+            {
+              doctor = snapshot.data![index].doctor;
+            }
+            String value = "DateTime : " + snapshot.data![index].datetime + "\nContact : " + snapshot.data![index].phone + "\nDoctor Name : " + doctor ;
             return Card(
               elevation: 5.0,
               
@@ -65,7 +73,6 @@ class _nameState extends State<Show> {
                 subtitle: Text("\t" +"\t"  +"\t"  + snapshot.data![index].datetime,
                 style: TextStyle(
                       color: Colors.black,
-              
                       fontSize: 18.0,
                     ),
                 
@@ -80,8 +87,7 @@ class _nameState extends State<Show> {
         {
           //list empty
           return Center(child: CircularProgressIndicator(),);
-        }
-        
+        } 
       }
       );
   }

@@ -11,6 +11,7 @@ import 'package:sqliteapp/sqlite3/database.dart';
 TextEditingController _emailcontroller = new TextEditingController();
 TextEditingController _passwordcontroller = new TextEditingController();
 
+  final _form = GlobalKey<FormState>();
 
 class Login extends StatefulWidget
 {
@@ -61,12 +62,23 @@ Widget SubmitButton(BuildContext context)
           primary: Colors.green,
           elevation: 3,
         ),
-        onPressed: () => loginvalidate(_emailcontroller.text.trim(), _passwordcontroller.text.trim(),context),
+        onPressed: () => Submit(context),
         label: Text("Submit"),
       ),
     ),
   );
 }
+ Submit(BuildContext context) 
+{
+  if (_form.currentState!.validate())
+  {
+     loginvalidate(_emailcontroller.text.trim(), _passwordcontroller.text.trim(),context);
+
+  }
+  else
+  {
+  }
+} 
 
 Widget Gotregister(BuildContext context)
 {
@@ -114,6 +126,7 @@ Widget doctorlogin(BuildContext context)
   );
 }
 
+
 Widget AuthPage(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
@@ -134,9 +147,10 @@ Widget AuthPage(BuildContext context) {
             child:SizedBox(
               height: window.physicalSize.height,
               child: new Form(
+                key: _form,
                   child:ListView(
                     children: <Widget>[
-                     CustomTextField.TextFieldType(context,_emailcontroller,Icon(Icons.email_outlined),TextInputType.text,"Email"),
+                     CustomTextField.EmailInput(context,_emailcontroller,Icon(Icons.email_outlined),TextInputType.emailAddress,"Name"),
                       SizedBox(
                         height: 10,
                       ),
@@ -148,8 +162,6 @@ Widget AuthPage(BuildContext context) {
                       Gotregister(context),
                       doctorlogin(context),
 
-
-                      
                     ],
                   )
               ),
