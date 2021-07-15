@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 import 'package:sqliteapp/customwidget/textfield.dart';
 import 'package:sqliteapp/loginui/doctorregistration.dart';
 import 'package:sqliteapp/sqlite3/database.dart';
@@ -79,7 +80,7 @@ titleTextStyle: TextStyle(
                 key: _form,
                   child:ListView(
                     children: <Widget>[
-                     CustomTextField.EmailInput(context,_emailcontroller,Icon(Icons.email_outlined),TextInputType.emailAddress,"Name"),
+                     CustomTextField.TextFieldType(context,_emailcontroller,Icon(Icons.email_outlined),TextInputType.emailAddress,"Name"),
                       SizedBox(
                         height: 10,
                       ),
@@ -132,9 +133,12 @@ Widget SubmitButton(BuildContext context)
 
 Submit(BuildContext context) 
 {
+final database = Provider.of<Data>(context,listen:false);
+
+
   if (_form.currentState!.validate())
   {
-doctorloginvalidate(_emailcontroller.text.trim(),_passwordcontroller.text.trim(),context);
+database.doctorloginvalidate(_emailcontroller.text.trim(),_passwordcontroller.text.trim(),context);
 
   }
 }
@@ -143,6 +147,9 @@ doctorloginvalidate(_emailcontroller.text.trim(),_passwordcontroller.text.trim()
 
 Widget dlist(BuildContext context)
 {
+final database = Provider.of<Data>(context,listen:false);
+
+
   return SizedBox(
     child: Padding(
       padding: EdgeInsets.fromLTRB(100, 20, 100, 20),
@@ -153,7 +160,7 @@ Widget dlist(BuildContext context)
           primary: Colors.green,
           elevation: 3,
         ),
-       onPressed: () => print(doctorlist()),
+       onPressed: () => print(database.fulllist()),
         //onPressed: () => retrivedata(),
 
         label: Text("List"),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-errordialog(BuildContext context,String title,String? content) 
+infodialog(BuildContext context,String title,String? content) 
  {
   print("error dialog");
   return showDialog(
@@ -21,3 +21,12 @@ errordialog(BuildContext context,String title,String? content)
      
      ); 
    }
+
+errordialog(BuildContext context,String title,String? content)
+{
+ return ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(title),
+          duration: Duration(milliseconds: 5000),
+          
+          ));
+} 

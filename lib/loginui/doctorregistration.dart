@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
 import 'package:sqliteapp/customwidget/textfield.dart';
+import 'package:sqliteapp/loginui/doctortime.dart';
 import 'package:sqliteapp/sqlite3/database.dart';
 
 TextEditingController _doctornamecontroller = new TextEditingController();
@@ -64,7 +65,7 @@ titleTextStyle: TextStyle(
                       SizedBox(
                         height: 10,
                       ),
-                     CustomTextField.EmailInput(context,_emailcontroller,Icon(Icons.email_outlined),TextInputType.emailAddress,"Name"),
+                     CustomTextField.EmailInput(context,_emailcontroller,Icon(Icons.email_outlined),TextInputType.emailAddress,"Email"),
                       SizedBox(
                         height: 10,
                       ),
@@ -118,7 +119,8 @@ Widget SubmitButton(BuildContext context)
 {
   if (_formkey.currentState!.validate())
   {
-doctorinsert(_doctornamecontroller.text.trim(), _emailcontroller.text.trim(),_passwordcontroller.text.trim(),context);
+  Navigator.of(context).push(MaterialPageRoute(builder: (context) =>DoctorTime(doctorname :_doctornamecontroller.text.trim(),email : _emailcontroller.text.trim(),password :_passwordcontroller.text.trim())));  
+//doctorinsert(_doctornamecontroller.text.trim(), _emailcontroller.text.trim(),_passwordcontroller.text.trim(),context);
 
   }
  } 

@@ -74,4 +74,75 @@ Icon _icon,TextInputType _keyboardtype  ,String _hint,
       } 
     ));
 }
+
+static Widget PhoneInput(BuildContext context,TextEditingController _controller,
+Icon _icon,TextInputType _keyboardtype  ,String _hint, 
+{bool pass=false})
+{
+  return ListTile(
+    leading : _icon,
+    title : TextFormField(
+      controller: _controller,
+      obscureText: pass ,
+      keyboardType: _keyboardtype,
+      style: TextStyle(
+        fontSize: 25.0,
+        color: Colors.black,
+      ),
+      decoration: new InputDecoration(
+        hintText: _hint,
+         hintStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 20.0,
+          ),
+      ),
+      validator: (value)
+      {
+        if(value!.isEmpty)
+        {
+          return "Required";
+        }
+        else if(value.length != 10)
+        {
+          return "Invalid Phone Number";
+        }
+       return null;
+      } 
+    ));
+}
+static Widget ZipInput(BuildContext context,TextEditingController _controller,
+Icon _icon,TextInputType _keyboardtype  ,String _hint, 
+{bool pass=false})
+{
+  return ListTile(
+    leading : _icon,
+    title : TextFormField(
+      controller: _controller,
+      obscureText: pass ,
+      keyboardType: _keyboardtype,
+      style: TextStyle(
+        fontSize: 25.0,
+        color: Colors.black,
+      ),
+      decoration: new InputDecoration(
+        hintText: _hint,
+         hintStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 20.0,
+          ),
+      ),
+      validator: (value)
+      {
+        if(value!.isEmpty)
+        {
+          return "Required";
+        }
+        else if(value.length != 6)
+        {
+          return "Invalid ZipCode";
+        }
+       return null;
+      } 
+    ));
+}
 }

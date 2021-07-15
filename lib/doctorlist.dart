@@ -69,7 +69,7 @@ class _nameState extends State<DoctorShow> {
                     ),
                 
                 ),
-                onTap: () => errordialog(context,snapshot.data![index].fullname ,value) ,
+                onTap: () => infodialog(context,snapshot.data![index].fullname ,value) ,
               ),
             );
           });

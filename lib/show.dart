@@ -77,7 +77,7 @@ class _nameState extends State<Show> {
                     ),
                 
                 ),
-                onTap: () => errordialog(context,snapshot.data![index].fullname ,value) ,
+                onTap: () => infodialog(context,snapshot.data![index].fullname ,value) ,
               ),
             );
           });

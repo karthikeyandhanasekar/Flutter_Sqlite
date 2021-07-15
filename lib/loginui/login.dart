@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:provider/provider.dart';
 import 'package:sqliteapp/customwidget/textfield.dart';
 import 'package:sqliteapp/loginui/doctorlogin.dart';
 import 'package:sqliteapp/loginui/register.dart';
@@ -18,12 +19,12 @@ class Login extends StatefulWidget
   _LoginState createState() => _LoginState();
 }
 class _LoginState extends State<Login> {
- 
+
  @override
   void initState() {
-    createdatabase();
+    //droptable();
+    Data.createdatabase();
     print("init");
-    //doctorlist();
     super.initState();
   }
   @override
@@ -70,9 +71,12 @@ Widget SubmitButton(BuildContext context)
 }
  Submit(BuildContext context) 
 {
+   final database = Provider.of<Data>(context, listen: false);
+
+
   if (_form.currentState!.validate())
   {
-     loginvalidate(_emailcontroller.text.trim(), _passwordcontroller.text.trim(),context);
+     database.loginvalidate(_emailcontroller.text.trim(), _passwordcontroller.text.trim(),context);
 
   }
   else

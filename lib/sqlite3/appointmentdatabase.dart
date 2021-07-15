@@ -62,7 +62,7 @@ class User
  {
   
    String _sql = 'insert into appointment values(?,?,?,?,?,?,?,?)';
-  Database db =  await createdatabase();
+  Database db =  await Data.createdatabase();
   db.transaction((txn) async
   {
     int id =  await txn.rawInsert(_sql,[values[0],values[1],values[2],values[3],values[4],values[5],values[6],values[7]]);
@@ -85,11 +85,13 @@ class User
  {
    try
    {
-    Database db = await createdatabase();
+    Database db = await Data.createdatabase();
      String _sql = 'select * from appointment ORDER BY datetime desc';
    List<Map> list = await  db.rawQuery(_sql);
-   print(list);
-      return list.map((e) => User.fromMap(e)).toList();
+   for (var lis in list )
+   {
+     print(lis);
+   }      return list.map((e) => User.fromMap(e)).toList();
 
    }
    catch(e)
@@ -102,7 +104,7 @@ class User
 
   Future<List<User>> Doctorschedule(String name) async 
  {
-   Database db = await createdatabase();
+   Database db = await Data.createdatabase();
      String _sql = 'select * from appointment where doctorname = ? ';
    List<Map> list = await  db.rawQuery(_sql,[name]);
    print(list);

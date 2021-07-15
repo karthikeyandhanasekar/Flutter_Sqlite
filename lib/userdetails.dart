@@ -1,17 +1,17 @@
-import 'dart:ui';
 
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:path/path.dart';
+import 'package:provider/provider.dart';
 import 'package:sqliteapp/customwidget/textfield.dart';
 import 'package:sqliteapp/show.dart';
 import 'package:sqliteapp/sqlite3/appointmentdatabase.dart';
-import 'package:sqliteapp/sqlite3/database.dart';
+
+import 'sqlite3/database.dart';
 
 final  _formKey = GlobalKey<FormState>();
 String? _doctorname;
-List<String> values = [];
+String? _date;
 
 TextEditingController _fullname = new TextEditingController();
 TextEditingController _phone = new TextEditingController();
@@ -26,6 +26,7 @@ class UserDetails extends StatefulWidget
   final String email;
 
    UserDetails({ required this.email}); 
+   
 
   _UserDetailsState createState() => _UserDetailsState();
 }
@@ -36,10 +37,10 @@ class _UserDetailsState extends State<UserDetails> {
 @override
   void initState() {
     print("init");
-     //Doctorlist();
+ /*    //Doctorlist();
   setState(() {
-      values = Doctorlist();
-    });
+      values = Data.Doctorlist();
+    });*/
     // TODO: implement initState
     super.initState();
   }
@@ -82,8 +83,7 @@ titleTextStyle: TextStyle(
         elevation: 20.0,
 
       ),
-      body:
-      AuthPage(context)
+      body:   AuthPage(context)
 
     );
          
@@ -91,6 +91,8 @@ titleTextStyle: TextStyle(
       
   }
   Widget AuthPage(BuildContext context) {
+      final database = Provider.of<Data>(context,listen:false);
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -107,7 +109,7 @@ titleTextStyle: TextStyle(
                       SizedBox(
                         height: 10,
                       ),
-                     CustomTextField.TextFieldType(context,_phone,Icon(Icons.phone_callback),TextInputType.phone,"Number",),
+                     CustomTextField.PhoneInput(context,_phone,Icon(Icons.phone_callback),TextInputType.phone,"Number",),
                       SizedBox(
                         height: 10,
                       ),
@@ -123,7 +125,7 @@ titleTextStyle: TextStyle(
                         height: 10,
                       ),
                         Expanded
-                          (child: CustomTextField.TextFieldType(context,_zipcode,Icon(Icons.code_outlined),TextInputType.number,"ZipCode",)),
+                          (child: CustomTextField.ZipInput(context,_zipcode,Icon(Icons.code_outlined),TextInputType.number,"ZipCode",)),
                       SizedBox(
                         height: 10,
                       ),
@@ -131,62 +133,33 @@ titleTextStyle: TextStyle(
                         SizedBox(
                         height: 10,
                       ),
-                       ListTile(
-                         leading: Icon(Icons.health_and_safety_outlined),
-                         title: DropdownButton<String>(
-                         focusColor:Colors.white,
-                         value: _doctorname,
-                         //elevation: 5,
-                         style: TextStyle(color: Colors.white),
-                         iconEnabledColor:Colors.black,
-                         items:values.map<DropdownMenuItem<String>>((String value) {
-                           return DropdownMenuItem<String>(
-                             value: value,
-                             child: Text(value,style:TextStyle(color:Colors.black,fontSize: 20.0,
-                       ),),
-                           );
-                         }).toList(),
-                         hint:Text(
-                           "Doctors",
-                           style: TextStyle(
-                               color: Colors.black,
-                               fontSize: 20,
-                               ),
-                         ),
-                         onChanged: ( value) {
-                           setState(() {
-                             print(value);
-                             _doctorname = value;
-                           });
-                         },
-                       ),
-                       ),
+                       DoctorSelection(database),
                      // CustomTextField.TextFieldType(context,_doctorname,Icon(Icons.people_alt_outlined),TextInputType.text,"Doctor Name"),
                       SizedBox(
                         height: 10,
                       ),
-
-                       DateTimePicker(
-                    type: DateTimePickerType.dateTimeSeparate,
-                    dateMask: 'd-MMM-yyyy',
-                    firstDate: DateTime(currentyear),
-                    lastDate: DateTime(currentyear+10),
-                    dateLabelText : 'Date',
-                    timeLabelText: 'Time',
+                  if (_doctorname != null) TimesSelection(database) else SizedBox(),
+                  SizedBox(height: 10,),
+                  ListTile(
+                        leading: Icon(Icons.timeline_outlined),
+                        title:DateTimePicker(
+                    type: DateTimePickerType.date,                    
+                    timeLabelText: 'Morning Slot',
+                    firstDate: DateTime(DateTime.now().year),
+                    lastDate:  DateTime(DateTime.now().year+10),
                     
-                    icon: Icon(Icons.date_range),
                     onSaved: (value)
                     {
-                        _appointtime = value;
+                        _date = value!.toString();
                     },
                     onChanged: (value)
                     {
-                      _appointtime = value;
-                      print(_appointtime);
+                      _date = value.toString();
+                      print(_date);
 
                     },
-                  ),
-                    
+                  ), 
+                      ),
                   SubmitButton(context)
                       
                     ],
@@ -200,8 +173,106 @@ titleTextStyle: TextStyle(
     );
   }
 
-
-Widget SubmitButton(BuildContext context)
+  FutureBuilder<List<dynamic>> DoctorSelection(Data database) {
+    return FutureBuilder(
+                       future: database.doctorlist() ,
+                       builder: (context, AsyncSnapshot<List> snapshot) {
+                         if (snapshot.hasData)
+                         {
+                         
+                         return ListTile(
+                           leading: Icon(Icons.health_and_safety_outlined),
+                           title: DropdownButton<String>(
+                           focusColor:Colors.white,
+                           value: _doctorname,
+                           //elevation: 5,
+                           style: TextStyle(color: Colors.white),
+                           iconEnabledColor:Colors.black,
+                           items:database.Doctorlist().map<DropdownMenuItem<String>>((String value) {
+                             return DropdownMenuItem<String>(
+                               value: value,
+                               child: Text(value,style:TextStyle(color:Colors.black,fontSize: 20.0,
+                         ),),
+                             );
+                           }).toList(),
+                           hint:Text(
+                             "Doctors",
+                             style: TextStyle(
+                                 color: Colors.black,
+                                 fontSize: 20,
+                                 ),
+                           ),
+                           onChanged: ( value) {
+                             setState(() {
+                               print(value);
+                               _doctorname = value;
+                               _appointtime = '';
+                     
+                             });
+                           },
+                         ),
+                         );
+                         
+                       }
+                       else
+                       {
+                         return Text("None");
+                       }
+                       }
+                     );
+  }
+FutureBuilder<List<dynamic>> TimesSelection(Data database) {
+   
+    return FutureBuilder(
+                       future: database.timming(_doctorname!) ,
+                       builder: (context, AsyncSnapshot<List> snapshot) {
+                         if (snapshot.hasData)
+                         {
+                         return ListTile(
+                           leading: Icon(Icons.health_and_safety_outlined),
+                           title: DropdownButton<String>(
+                           focusColor:Colors.white,
+                          
+                           //elevation: 5,
+                           
+                           style: TextStyle(color: Colors.white),
+                           iconEnabledColor:Colors.black,
+                           items:database.timminglist(_doctorname).map<DropdownMenuItem<String>>((String value) {
+                             return DropdownMenuItem<String>(
+                               value: value,
+                               child: Text(value,style:TextStyle(color:Colors.black,fontSize: 20.0,
+                         ),),
+                             );
+                           }).toList(),
+                           hint:Text(
+                             _appointtime!,
+                             style: TextStyle(
+                                 color: Colors.black,
+                                 fontSize: 20,
+                                 ),
+                           ),
+                           onChanged: ( value) {
+                             setState(() {
+                               print(value);
+                               _appointtime = value;
+                               print("Appointment is ");
+                               print(_appointtime);
+                     
+                             });
+                           },
+                           value: database.timminglist(_doctorname).first,
+                         ),
+                         );
+                         
+                       }
+                       else
+                       {
+                         return Text("None");
+                       }
+                       }
+                     );
+  }
+  Widget SubmitButton(BuildContext context)
 {
   return SizedBox(
     child: Padding(
@@ -225,14 +296,14 @@ void formvalidate(BuildContext context)
 {
   if (_formKey.currentState!.validate())
   {
-if (_appointtime == null)
+if (_appointtime == null && _date == null)
     {
       _appointtime = new DateTime.now().toString();
     }
     List<String?> values = [_fullname.text.trim(),_phone.text.trim(),_street.text.trim(),
-    _city.text.trim(),_zipcode.text.trim(),_email.text.trim(),_doctorname,_appointtime.toString()];
+    _city.text.trim(),_zipcode.text.trim(),_email.text.trim(),_doctorname, _date.toString()+ "  " + _appointtime.toString()];
     print(values);
-    //insertappointmentvalue(values,context);
+    insertappointmentvalue(values,context);
   }
    
   }
