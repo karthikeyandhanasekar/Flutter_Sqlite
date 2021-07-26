@@ -80,7 +80,7 @@ titleTextStyle: TextStyle(
                 key: _form,
                   child:ListView(
                     children: <Widget>[
-                     CustomTextField.TextFieldType(context,_emailcontroller,Icon(Icons.email_outlined),TextInputType.emailAddress,"Name"),
+                     CustomTextField.TextFieldType(context,_emailcontroller,Icon(Icons.people_alt_outlined),TextInputType.emailAddress,"Name"),
                       SizedBox(
                         height: 10,
                       ),
@@ -89,8 +89,8 @@ titleTextStyle: TextStyle(
                         height: 10,
                       ),
                       SubmitButton(context),
-                      doctorregister(context),
-                      dlist(context)
+                     // doctorregister(context),
+                     dlist(context)
                       
                     ],
                   )

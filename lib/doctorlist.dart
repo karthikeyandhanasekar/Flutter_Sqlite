@@ -13,6 +13,7 @@ class DoctorShow extends StatefulWidget {
   @override
   _nameState createState() => _nameState();
 }
+String drawername = '';
 
 class _nameState extends State<DoctorShow> {
    
@@ -22,10 +23,51 @@ class _nameState extends State<DoctorShow> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Schedule'),
+        
       backgroundColor: Theme.of(context).bottomAppBarColor,
 
       ),
       body: ListTileWidget(context),
+
+    drawer: Drawer(
+      child: ListView(  
+    padding: EdgeInsets.zero,  
+    children: <Widget>[  
+      Container(
+        height: 100.0,
+        child: DrawerHeader(  
+
+          decoration: BoxDecoration(
+            color:  Theme.of(context).bottomAppBarColor,
+          
+          ),
+          child: Column(
+            
+            children: [
+//Image.asset('assets/images/doctorhello.png',fit: BoxFit.fitHeight,height: 100,),
+                Text(widget.name,
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 30,
+                  decorationStyle: TextDecorationStyle.double
+                ),
+                ),
+
+            ],)
+        ),
+      ),
+      ListTile(
+        leading: Icon(Icons.messenger),
+        title: Text("Menu 1"),
+        onTap: () => Navigator.of(context).pop(),
+      )
+
+    ]
+      ),  
+    ),
+
+
     );
   }
   
@@ -38,11 +80,11 @@ class _nameState extends State<DoctorShow> {
       {
         if(snapshot.hasData)
         {
-            
         return ListView.builder(
           itemCount: snapshot.data?.length,
           itemBuilder: (BuildContext context,int index)
           {
+
             String value = "DateTime : " + snapshot.data![index].datetime + "\nContact : " + snapshot.data![index].phone + "\nDoctor Name : " + snapshot.data![index].doctor ;
             return Card(
               elevation: 5.0,

@@ -1,4 +1,4 @@
-#Thu Jul 15 07:58:08 IST 2021
+#Mon Jul 26 11:44:57 IST 2021
 base.0=/home/karthik/flutterProject/sqliteapp/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

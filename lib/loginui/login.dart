@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sqliteapp/sqlite3/database.dart';
 
+import 'doctorregistration.dart';
+
 
 TextEditingController _emailcontroller = new TextEditingController();
 TextEditingController _passwordcontroller = new TextEditingController();
@@ -130,6 +132,25 @@ Widget doctorlogin(BuildContext context)
   );
 }
 
+Widget AdminLogin(BuildContext context)
+{
+  return SizedBox(
+    child: Padding(
+      padding: EdgeInsets.fromLTRB(100, 5, 100, 20),
+      child: OutlinedButton(
+        
+        onPressed:()=> Navigator.of(context).push(MaterialPageRoute(builder: (context)=> DoctorRegistration())      ),
+        child: Text('Admin Login',
+        style: TextStyle(
+          fontSize: 20.0,
+          color: Colors.black54,
+          fontWeight: FontWeight.w900,
+        ),),
+        )
+    ),
+  );
+}
+
 
 Widget AuthPage(BuildContext context) {
     return SingleChildScrollView(
@@ -165,6 +186,7 @@ Widget AuthPage(BuildContext context) {
                       SubmitButton(context),
                       Gotregister(context),
                       doctorlogin(context),
+                      AdminLogin(context),
 
                     ],
                   )

@@ -153,7 +153,7 @@ class database implements Data
    List<Map> _list= await db.rawQuery(_sql,[_email,_password]); 
    if (_list.isNotEmpty)
    {
-    // print("list not empty and validate");
+    print("list not empty and validate");
      //change here
      
       Navigator.of(context).push(
