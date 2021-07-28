@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:provider/provider.dart';
 import 'package:sqliteapp/customwidget/textfield.dart';
+import 'package:sqliteapp/loginui/adminlogin.dart';
 import 'package:sqliteapp/loginui/doctorlogin.dart';
 import 'package:sqliteapp/loginui/register.dart';
 import 'package:flutter/material.dart';
@@ -139,7 +140,7 @@ Widget AdminLogin(BuildContext context)
       padding: EdgeInsets.fromLTRB(100, 5, 100, 20),
       child: OutlinedButton(
         
-        onPressed:()=> Navigator.of(context).push(MaterialPageRoute(builder: (context)=> DoctorRegistration())      ),
+        onPressed:()=> Navigator.of(context).push(MaterialPageRoute(builder: (context)=> admin())      ),
         child: Text('Admin Login',
         style: TextStyle(
           fontSize: 20.0,
@@ -175,7 +176,7 @@ Widget AuthPage(BuildContext context) {
                 key: _form,
                   child:ListView(
                     children: <Widget>[
-                     CustomTextField.EmailInput(context,_emailcontroller,Icon(Icons.email_outlined),TextInputType.emailAddress,"Name"),
+                     CustomTextField.EmailInput(context,_emailcontroller,Icon(Icons.email_outlined),TextInputType.emailAddress,"Email"),
                       SizedBox(
                         height: 10,
                       ),

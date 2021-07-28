@@ -160,7 +160,7 @@ final database = Provider.of<Data>(context,listen:false);
           primary: Colors.green,
           elevation: 3,
         ),
-       onPressed: () => print(database.fulllist()),
+       onPressed: () => database.fulllist(),
         //onPressed: () => retrivedata(),
 
         label: Text("List"),

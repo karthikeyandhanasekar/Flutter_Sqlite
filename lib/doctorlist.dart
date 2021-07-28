@@ -42,7 +42,6 @@ class _nameState extends State<DoctorShow> {
           
           ),
           child: Column(
-            
             children: [
 //Image.asset('assets/images/doctorhello.png',fit: BoxFit.fitHeight,height: 100,),
                 Text(widget.name,
@@ -85,7 +84,7 @@ class _nameState extends State<DoctorShow> {
           itemBuilder: (BuildContext context,int index)
           {
 
-            String value = "DateTime : " + snapshot.data![index].datetime + "\nContact : " + snapshot.data![index].phone + "\nDoctor Name : " + snapshot.data![index].doctor ;
+            String value = "Email : " + snapshot.data![index].email + "\nContact : " + snapshot.data![index].phone + "\nStreet Name : " + snapshot.data![index].street ;
             return Card(
               elevation: 5.0,
               
@@ -111,7 +110,9 @@ class _nameState extends State<DoctorShow> {
                     ),
                 
                 ),
-                onTap: () => infodialog(context,snapshot.data![index].fullname ,value) ,
+                onLongPress: () => infodialog(context,snapshot.data![index].fullname ,value) ,
+                onTap: () => attendancedialog(context,snapshot.data![index].fullname ,value,snapshot.data![index].datetime),
+
               ),
             );
           });

@@ -6,6 +6,7 @@ import 'package:path/path.dart';
 import 'package:sqliteapp/customwidget/dialog.dart';
 import 'package:sqliteapp/doctorlist.dart';
 import 'package:sqliteapp/loginui/doctorlogin.dart';
+import 'package:sqliteapp/loginui/doctorregistration.dart';
 import 'package:sqliteapp/loginui/login.dart';
 import 'package:sqliteapp/userdetails.dart';
 import 'package:sqliteapp/show.dart';
@@ -71,7 +72,8 @@ abstract class Data
 
     Database database = await openDatabase(
       join(dbpath,'Health.db')
-      ,version: 2,
+      ,version: 3,
+
     onCreate: (Database db, int version) async
     {
     await db.execute("DROP TABLE IF EXISTS doctors");
@@ -80,6 +82,12 @@ abstract class Data
       await db.execute("create table doctors (name varchar2(100) ,email varchar2(50) , password varchar2(100),FN varchar2(100), AN varchar2(100), EN varchar2(100),PRIMARY KEY(name,email)) ");
       await db.execute("create table appointment (fullname varchar2(100) , phone varchar2(10) , Street varchar2(100),city varchar2(100),zipcode varchar2(6),email varchar2(100),doctorname varchar2(100),datetime varchar2(100))");
    // print("created");
+    },
+    onUpgrade: (Database db, int version ,int newversion) async
+    {
+        await  db.execute("Alter table appointment add column status varchar2(100) DEFAULT 'Present' ");
+        await db.execute("create table admin (name varchar2(100),password varchar2(100))");
+        await db.execute("insert into admin values('admin','admin')");
     }
     ); 
     
@@ -98,6 +106,9 @@ abstract class Data
  List<String> timminglist(String? name);
   Future<List> timming(String name) ;
   Future<void> fulllist();
+     Future<void> AdminLoginvalidate(String _name ,String _password,BuildContext context) ;
+     Future<void> updatepatientstatus(String _date,String _value) ;
+
 
 
 
@@ -215,6 +226,9 @@ class database implements Data
    }
    else
    {
+     String _sql = 'select * from doctors';
+   List<Map> _list= await db.rawQuery(_sql); 
+   print(_list);
    //  print("Login Failed");
       await errordialog(context, "Login failed",'Invalid Creditionals');
 
@@ -281,14 +295,54 @@ void droptable() async
 
 Future<void> fulllist() async
 {
+  print("Full list");
  Database db = await Data.createdatabase();
      String _sql = 'select * from doctors ';
    List list = await  db.rawQuery(_sql,[]);
    for(var doct in list)
    {
-     
     print(doct);
    }
 }
+     Future<void> AdminLoginvalidate(String _name ,String _password,BuildContext context) async
+     {
+       print("admin");
+   Database db = await Data.createdatabase();
+     String _sql = 'select * from admin where name = ? and password = ?';
+   List<Map> _list= await db.rawQuery(_sql,[_name,_password]); 
+   print(_list);
+   if (_list.isNotEmpty)
+   {
+    // print("list not empty and validate");
+     //change here
+      Navigator.of(context).push(
+    MaterialPageRoute(builder: (context) => DoctorRegistration())
+  );
+   }
+   else
+   {
+   //  print("Login Failed");
+      await errordialog(context, "AdminLogin failed",'Invalid Creditionals');
+
+   } 
+   
+       
+     }
+
+Future<void> updatepatientstatus(String _date,String _value) async
+{
+  print("updatestatus");
+   Database db = await Data.createdatabase();
+     String _sql = 'update appointment set status = ? where datetime = ?';
+   List<Map> _list= await db.rawQuery(_sql,[_value,_date]); 
+   print(_list);
+   
+    String _sql1 = 'select * from appointment where datetime= ?';
+   List<Map> _list1= await db.rawQuery(_sql1,[_date]); 
+   print(_list1);
+   
+
+}
+
 
 }

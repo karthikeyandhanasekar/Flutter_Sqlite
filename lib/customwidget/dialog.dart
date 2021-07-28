@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sqliteapp/sqlite3/database.dart';
 
 infodialog(BuildContext context,String title,String? content) 
  {
@@ -30,3 +32,28 @@ errordialog(BuildContext context,String title,String? content)
           
           ));
 } 
+attendancedialog(BuildContext context,String title,String? content,String _date) 
+ {
+   final database = Provider.of<Data>(context, listen: false);
+  print("attendance dialog");
+  return showDialog(
+    context: context,
+     builder: (context) 
+     {
+       return  AlertDialog(
+         title: Text(title),
+         actions: [
+           TextButton(
+             onPressed: () => database.updatepatientstatus(_date, "Present"), 
+             child: Text('Present')),
+             TextButton(
+             onPressed: () => database.updatepatientstatus(_date, "Absent"), 
+             child: Text('Absent')),    
+         ],
+         content: Text(content!),
+   );
+     }
+     
+     
+     ); 
+   }

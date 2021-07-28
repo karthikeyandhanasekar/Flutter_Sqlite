@@ -61,11 +61,11 @@ class User
  Future<void> insertappointmentvalue(List<String?> values,BuildContext context) async
  {
   
-   String _sql = 'insert into appointment values(?,?,?,?,?,?,?,?)';
+   String _sql = 'insert into appointment values(?,?,?,?,?,?,?,?,?)';
   Database db =  await Data.createdatabase();
   db.transaction((txn) async
   {
-    int id =  await txn.rawInsert(_sql,[values[0],values[1],values[2],values[3],values[4],values[5],values[6],values[7]]);
+    int id =  await txn.rawInsert(_sql,[values[0],values[1],values[2],values[3],values[4],values[5],values[6],values[7],"Present"]);
     print("inserted : $id");
     print(values);
     if (id != 0)

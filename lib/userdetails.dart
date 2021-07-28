@@ -284,7 +284,7 @@ FutureBuilder<List<dynamic>> TimesSelection(Data database) {
           primary: Colors.green,
           elevation: 3,
         ),
-       onPressed: () => formvalidate(context),
+       onPressed: () => formvalidate(context,widget.email),
         label: Text("Submit"),
       ),
     ),
@@ -292,7 +292,7 @@ FutureBuilder<List<dynamic>> TimesSelection(Data database) {
 }
 }
 
-void formvalidate(BuildContext context)
+void formvalidate(BuildContext context,String email)
 {
   if (_formKey.currentState!.validate())
   {
@@ -301,7 +301,7 @@ if (_appointtime == null && _date == null)
       _appointtime = new DateTime.now().toString();
     }
     List<String?> values = [_fullname.text.trim(),_phone.text.trim(),_street.text.trim(),
-    _city.text.trim(),_zipcode.text.trim(),_email.text.trim(),_doctorname, _date.toString()+ "  " + _appointtime.toString()];
+    _city.text.trim(),_zipcode.text.trim(),email ,_doctorname, _date.toString()+ "  " + _appointtime.toString()];
     print(values);
     insertappointmentvalue(values,context);
   }
