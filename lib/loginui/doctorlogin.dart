@@ -90,7 +90,7 @@ titleTextStyle: TextStyle(
                       ),
                       SubmitButton(context),
                      // doctorregister(context),
-                     dlist(context)
+                     //dlist(context)
                       
                     ],
                   )
